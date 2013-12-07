@@ -1,0 +1,23 @@
+/**define your $_product class along with the other class definitions @ the top of the phtml template file but after the magento disclaimer*/
+<?php $_product = $this->getProduct(); ?>
+
+/**call on product database values to determine which CMS static block to display - names must match in magento backend*/
+
+/**if product weighs more than 155 lbs but less than 208 lbs display the cms block with id "flat50"*/
+<?php if ($_product->getweight() > "155.0000" && $_product->getweight() < "208.0000"): ?>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('flat50')->toHtml() ?>
+
+/**if product weighs more than 207 lbs but less than 414 lbs display the cms block with id "flat100"*/
+<?php elseif ($_product->getweight() > "207.0000" && $_product->getweight() < "414.0000"): ?>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('flat100')->toHtml() ?>
+
+/**if product weighs more than 413 lbs but less than 440 lbs display cms block with id "flat150"*/
+<?php elseif ($_product->getweight() > "413.0000" && $_product->getweight() < "440.0000"): ?>
+	<?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('flat150')->toHtml() ?>
+
+/**if product weighs less than 156 lbs and costs more than 39 dollars display cms block with id "fship"*/
+<?php elseif ($_product->getweight() < "156.0000" && $_product->getPrice() > "39.00"): ?>
+        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId('fship')->toHtml() ?>
+<?php endif; ?>
+
+/**content in your cms blocks can be varied - for these they include a simple icon and say "flat rate shipping starting at $X" or "free shipping available"*/
